@@ -46,12 +46,23 @@ $(function(){
             // 指定されたデータを保持するBlobを作成する。
             var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
             var blob = new Blob([ bom, resValue.join("\n") ], { "type" : "text/csv" });
+            var link = document.createElement("a");
          
             /* 自動ダウンロードにする場合 */
-            var element = document.createElement("a");
-            element.download = name;
-            element.href = window.URL.createObjectURL(blob);
-            element.click();
+            if (window.navigator.msSaveOrOpenBlob) {
+            	  // for ie
+            	  window.navigator.msSaveOrOpenBlob(blob, name);
+            	} else if (window.URL && window.URL.createObjectURL) {
+            	  // for chrome (and safari)
+            	  link.setAttribute('download', name);
+            	  link.setAttribute('href', window.URL.createObjectURL(blob));
+            	  link.click();
+            	} else if (window.URL && window.URL.createObjectURL) {
+            	  // for firefox
+            	  link.setAttribute('download', name);
+            	  link.setAttribute('href', window.URL.createObjectURL(blob));
+            	  link.click();
+            	}
             
             /* 手動ダウンロードにする場合 */
 //            window.URL = window.URL || window.webkitURL;

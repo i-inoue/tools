@@ -27,20 +27,25 @@ $(function(){
             
             // 出力データを生成する
             var resValue = [];
+            var keys;
             for(var i = 1; i < itemArr.length -1; i++){
             	    var json = JSON.parse(itemArr[i][eventIndex]);
             	    
             	    // ヘッダー生成
             	    if (i == 1) {
+            	    	    keys = Object.keys(json);
             	    	    resValue.push(itemArr[0].slice(0, eventIndex)
-            	    	                      .concat(Object.keys(json))
+            	    	                      .concat(keys)
             	    	                      .concat(itemArr[0].slice(eventIndex +1)));
             	    }
             	    
             	    // ボディ生成
-            	    resValue.push(itemArr[i].slice(0, eventIndex)
-  	                      .concat(Object.values(json))
-  	                      .concat(itemArr[i].slice(eventIndex +1)));
+            	    var body = itemArr[i].slice(0, eventIndex);
+            	    for (var j = 0; j < keys.length; j++) {
+            	    	console.log(json[keys[j]]);
+            	    	    body = body.concat(json[keys[j]]);
+            	    }
+            	    resValue.push(body.concat(itemArr[i].slice(eventIndex +1)));
             }
 
             // 指定されたデータを保持するBlobを作成する。

@@ -59,7 +59,7 @@ $(function(){
 //            $("#" + id).attr("download", "tmp.txt");
         }
 
-        reader.readAsText(file, 'SHIFT-JIS');
+        reader.readAsText(file, 'UTF-8');
     }).on("dragenter", function() {
         return false;
     }).on("dragover", function() {

@@ -44,7 +44,8 @@ $(function(){
             }
 
             // 指定されたデータを保持するBlobを作成する。
-            var blob = new Blob([ resValue.join("\n") ], { "type" : "text/csv" });
+            var bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+            var blob = new Blob([ bom, resValue.join("\n") ], { "type" : "text/csv" });
          
             /* 自動ダウンロードにする場合 */
             var element = document.createElement("a");

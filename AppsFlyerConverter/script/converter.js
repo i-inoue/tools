@@ -27,13 +27,12 @@ $(function(){
             
             // 出力データを生成する
             var resValue = [];
-            var keys;
+            var keys = ["af_content_id","af_content_type","af_currency","af_revenue","af_description"];
             for(var i = 1; i < itemArr.length -1; i++){
             	    var json = JSON.parse(itemArr[i][eventIndex]);
             	    
             	    // ヘッダー生成
             	    if (i == 1) {
-            	    	    keys = Object.keys(json);
             	    	    resValue.push(itemArr[0].slice(0, eventIndex)
             	    	                      .concat(keys)
             	    	                      .concat(itemArr[0].slice(eventIndex +1)));
